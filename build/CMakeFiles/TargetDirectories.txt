@@ -1,0 +1,6 @@
+/home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/rebuild_cache.dir
+/home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/validator.dir
+/home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/edit_cache.dir
+/home/michail/Рабочий стол/c++/nw_ex/build/dlib_build/CMakeFiles/rebuild_cache.dir
+/home/michail/Рабочий стол/c++/nw_ex/build/dlib_build/CMakeFiles/dlib.dir
+/home/michail/Рабочий стол/c++/nw_ex/build/dlib_build/CMakeFiles/edit_cache.dir

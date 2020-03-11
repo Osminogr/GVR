@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -DNDEBUG  -rdynamic CMakeFiles/validator.dir/validator.cpp.o  -o validator dlib_build/libdlib.a -lpthread -lnsl -lSM -lICE -lX11 -lXext -lgif -lpng -lz -ljpeg -lblas -llapack -lsqlite3 
