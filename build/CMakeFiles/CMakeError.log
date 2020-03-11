@@ -74,3 +74,79 @@ Makefile:126: recipe for target 'cmTC_db4be/fast' failed
 make: *** [cmTC_db4be/fast] Error 2
 
 
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8a078/fast"
+/usr/bin/make -f CMakeFiles/cmTC_8a078.dir/build.make CMakeFiles/cmTC_8a078.dir/build
+make[1]: Entering directory '/home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_8a078.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_8a078.dir/CheckSymbolExists.c.o   -c "/home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c"
+Linking C executable cmTC_8a078
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8a078.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_8a078.dir/CheckSymbolExists.c.o  -o cmTC_8a078 
+CMakeFiles/cmTC_8a078.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_8a078.dir/build.make:97: recipe for target 'cmTC_8a078' failed
+make[1]: *** [cmTC_8a078] Error 1
+make[1]: Leaving directory '/home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_8a078/fast' failed
+make: *** [cmTC_8a078/fast] Error 2
+
+File /home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_02c7c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_02c7c.dir/build.make CMakeFiles/cmTC_02c7c.dir/build
+make[1]: Entering directory '/home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_02c7c.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_02c7c.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_02c7c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_02c7c.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_02c7c.dir/CheckFunctionExists.c.o  -o cmTC_02c7c -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_02c7c.dir/build.make:97: recipe for target 'cmTC_02c7c' failed
+make[1]: *** [cmTC_02c7c] Error 1
+make[1]: Leaving directory '/home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_02c7c/fast' failed
+make: *** [cmTC_02c7c/fast] Error 2
+
+
+Determining if the function sgesv exists failed with the following output:
+Change Dir: /home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_980ac/fast"
+/usr/bin/make -f CMakeFiles/cmTC_980ac.dir/build.make CMakeFiles/cmTC_980ac.dir/build
+make[1]: Entering directory '/home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_980ac.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=sgesv   -o CMakeFiles/cmTC_980ac.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_980ac
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_980ac.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=sgesv    -rdynamic CMakeFiles/cmTC_980ac.dir/CheckFunctionExists.c.o  -o cmTC_980ac /usr/lib/x86_64-linux-gnu/liblapack.so 
+CMakeFiles/cmTC_980ac.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x10): undefined reference to `sgesv'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_980ac.dir/build.make:98: recipe for target 'cmTC_980ac' failed
+make[1]: *** [cmTC_980ac] Error 1
+make[1]: Leaving directory '/home/michail/Рабочий стол/c++/nw_ex/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_980ac/fast' failed
+make: *** [cmTC_980ac/fast] Error 2
+
+

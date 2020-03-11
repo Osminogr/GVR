@@ -125,8 +125,10 @@ int main(int argc, char** argv) try
     {
         for (size_t j = 0; j < face_descriptor_d.size(); ++j)
         {
-            if (length(face_descriptors[i]-face_descriptors[j]) < 0.6)
+            if (length(face_descriptors[i]-face_descriptor_d[j]) < 0.6)
                 cout << "Тут есть дуэйн!"<< endl;
+                cout << i << endl;
+                cout << j << endl;
         }
     }
     cout << "hit enter to terminate" << endl;
