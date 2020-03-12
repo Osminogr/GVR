@@ -107,29 +107,13 @@ int main(int argc, char** argv) try
     // identify if a pair of images are from the same person or from different people.
     std::vector<matrix<float,0,1>> face_descriptors = net(faces);
     std::vector<matrix<float,0,1>> face_descriptor_d = net(f_d);
-
-    std::vector<sample_pair> edges;
-    for (size_t i = 0; i < face_descriptors.size(); ++i)
-    {
-        for (size_t j = i; j < face_descriptors.size(); ++j)
-        {
-            if (length(face_descriptors[i]-face_descriptors[j]) < 0.6)
-                edges.push_back(sample_pair(i,j));
-        }
-    }
-    std::vector<unsigned long> labels;
-    const auto num_clusters = chinese_whispers(edges, labels);
-    cout << "number of people found in the image: "<< num_clusters << endl;
     // попробуем найти дуэйна
     for (size_t i = 0; i < face_descriptors.size(); ++i)
     {
-        for (size_t j = 0; j < face_descriptor_d.size(); ++j)
-        {
-            if (length(face_descriptors[i]-face_descriptor_d[j]) < 0.6)
-                cout << "Тут есть дуэйн!"<< endl;
-                cout << i << endl;
-                cout << j << endl;
-        }
+        if (length(face_descriptors[i]-face_descriptor_d[0]) < 0.6)
+            cout << "Тут есть дуэйн!"<< endl;
+            cout << i << endl;
+        
     }
     cout << "hit enter to terminate" << endl;
     cin.get();
