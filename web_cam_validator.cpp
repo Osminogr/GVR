@@ -1,3 +1,136 @@
+<<<<<<< HEAD
+#include <dlib/opencv.h>
+#include <dlib/dnn.h>
+#include <dlib/gui_widgets.h>
+#include <dlib/clustering.h>
+#include <dlib/string.h>
+#include <dlib/image_io.h>
+#include <dlib/image_processing/frontal_face_detector.h>
+#include <opencv2/highgui/highgui.hpp>
+#include <dlib/image_processing/frontal_face_detector.h>
+#include <dlib/image_processing/render_face_detections.h>
+#include <dlib/image_processing.h>
+#include <dlib/gui_widgets.h>
+
+using namespace dlib;
+using namespace std;
+template <template <int,template<typename>class,int,typename> class block, int N, template<typename>class BN, typename SUBNET>
+using residual = add_prev1<block<N,BN,1,tag1<SUBNET>>>;
+
+template <template <int,template<typename>class,int,typename> class block, int N, template<typename>class BN, typename SUBNET>
+using residual_down = add_prev2<avg_pool<2,2,2,2,skip1<tag2<block<N,BN,2,tag1<SUBNET>>>>>>;
+
+template <int N, template <typename> class BN, int stride, typename SUBNET>
+using block  = BN<con<N,3,3,1,1,relu<BN<con<N,3,3,stride,stride,SUBNET>>>>>;
+
+template <int N, typename SUBNET> using ares      = relu<residual<block,N,affine,SUBNET>>;
+template <int N, typename SUBNET> using ares_down = relu<residual_down<block,N,affine,SUBNET>>;
+
+template <typename SUBNET> using alevel0 = ares_down<256,SUBNET>;
+template <typename SUBNET> using alevel1 = ares<256,ares<256,ares_down<256,SUBNET>>>;
+template <typename SUBNET> using alevel2 = ares<128,ares<128,ares_down<128,SUBNET>>>;
+template <typename SUBNET> using alevel3 = ares<64,ares<64,ares<64,ares_down<64,SUBNET>>>>;
+template <typename SUBNET> using alevel4 = ares<32,ares<32,ares<32,SUBNET>>>;
+
+using anet_type = loss_metric<fc_no_bias<128,avg_pool_everything<
+                            alevel0<
+                            alevel1<
+                            alevel2<
+                            alevel3<
+                            alevel4<
+                            max_pool<3,3,2,2,relu<affine<con<32,7,7,2,2,
+                            input_rgb_image_sized<150>
+                            >>>>>>>>>>>>;
+
+// ----------------------------------------------------------------------------------------
+
+std::vector<matrix<rgb_pixel>> jitter_image(
+    const matrix<rgb_pixel>& img
+);
+
+// --------------------------------------------------------------------------------------
+int main(int argc, char** argv)
+{
+    try
+    {
+        if (argc != 2)
+        {
+            cout << "Run this example by invoking it like this: " << endl;
+            cout << "   ./validator faces/bald_guys.jpg" << endl;
+            return 1;
+        }
+        frontal_face_detector detector = get_frontal_face_detector();
+        shape_predictor sp;
+        deserialize("shape_predictor_5_face_landmarks.dat") >> sp;
+        anet_type net;
+        deserialize("dlib_face_recognition_resnet_model_v1.dat") >> net;
+
+
+        matrix<rgb_pixel> img;
+        load_image(img, argv[1]);
+        image_window win1(img);
+        //Подгружаем лица из аргумента
+        std::vector<matrix<rgb_pixel>> f_d;
+        for (auto face : detector(img))
+        {
+            auto shape = sp(img, face);
+            matrix<rgb_pixel> face_chip;
+            extract_image_chip(img, get_face_chip_details(shape, 150, 0.25), face_chip);
+            f_d.push_back(move(face_chip));
+            win1.add_overlay(face);
+        }
+        std::vector<matrix<float, 0, 1>> face_descriptor_d = net(f_d);
+        cv::VideoCapture cap(0);
+        if (!cap.isOpened())
+        {
+            cerr << "Unable to connect to camera" << endl;
+            return 1;
+        }
+        image_window win;
+        image_window win3;
+        image_window recognited;
+        while(!win.is_closed())
+        {
+            cv::Mat temp;
+            if (!cap.read(temp))
+            {
+                break;
+            }
+            
+            cv_image<bgr_pixel> cimg(temp);
+            std::vector<matrix<rgb_pixel>> f_de;
+            for (auto face : detector(cimg))
+            {
+                auto shape = sp(cimg, face);
+                matrix<rgb_pixel> face_chip;
+                extract_image_chip(cimg, get_face_chip_details(shape, 150, 0.25), face_chip);
+                win3.set_image(face_chip);
+                f_de.push_back(move(face_chip));
+            }
+            cout << "nope" << endl;
+            win.set_image(cimg);
+            std::vector<matrix<float, 0, 1>> face_descriptors = net(f_de);
+            for (size_t i = 0; i < face_descriptors.size(); ++i)
+            {
+                if (length(face_descriptors[i] - face_descriptor_d[0]) < 0.6) {
+                    cout << "here" << endl;
+                    recognited.set_image(f_de[i]);
+                }
+
+            }
+        }
+    }
+    catch(serialization_error& e)
+    {
+        cout << "http://dlib.net/files/shape_predictor_5_face_landmarks.dat.bz2" << endl;
+        cout << "http://dlib.net/files/dlib_face_recognition_resnet_model_v1.dat.bz2" << endl;
+    }
+    catch(exception& e)
+    {
+        cout << e.what() << endl;
+    }
+}
+=======
 #include <dlib/opencv.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <dlib/image_processing/render_face_detections.h>
@@ -149,3 +282,4 @@ int main(int argc, char** argv)
         cout << e.what() << endl;
     }
 }
+>>>>>>> 44cd815f58d1c86b2127a9892bf738aa02f734ab
